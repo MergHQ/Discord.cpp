@@ -1,0 +1,2 @@
+# DiscordPP
+Discord C++ library
