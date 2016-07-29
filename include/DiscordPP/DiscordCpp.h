@@ -1,13 +1,17 @@
 #pragma once
-#include <DiscordPP\IStartParams.h>
+#include <DiscordPP\StartParams.h>
 #include <DiscordPP\Gateway.h>
+#include <DiscordPP\EventSystem.h>
+#include <thread>
 
 class CDiscordCpp
 {
 public:
-	CDiscordCpp(IStartParams& params);
+	CDiscordCpp(SStartParams& params);
 	~CDiscordCpp();
-private:
-	CGateway* m_pGateway;
 
+	CEventSystem* pEventSystem;
+	CGateway* pGateway;
+private:
+	std::thread m_gatewayThread;
 };

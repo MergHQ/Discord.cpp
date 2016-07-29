@@ -9,10 +9,6 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
     <Filter Include="Source Files\Gateway">
       <UniqueIdentifier>{082e6de6-b4ad-4243-9c64-42c36af79c0c}</UniqueIdentifier>
     </Filter>
@@ -21,6 +17,12 @@
     </Filter>
     <Filter Include="Interfaces">
       <UniqueIdentifier>{31b78b41-6723-42c5-8a96-05fad043d54c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Structs">
+      <UniqueIdentifier>{add0dbac-c392-478b-8ecc-410b4f1552b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Systems">
+      <UniqueIdentifier>{130890ba-465f-442b-a519-1456d31ed2de}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -39,11 +41,20 @@
     <ClInclude Include="JSON.hpp">
       <Filter>JSON</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\DiscordPP\IStartParams.h">
-      <Filter>Interfaces</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\DiscordPP\DiscordCpp.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\DiscordPP\StartParams.h">
+      <Filter>Structs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\DiscordPP\IEventListener.h">
+      <Filter>Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\DiscordPP\EventParams.h">
+      <Filter>Structs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\DiscordPP\EventSystem.h">
+      <Filter>Source Files\Systems</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -55,6 +66,9 @@
     </ClCompile>
     <ClCompile Include="DiscordCpp.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EventSystem.cpp">
+      <Filter>Source Files\Systems</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

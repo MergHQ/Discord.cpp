@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 
-struct IStartParams
+struct SStartParams
 {
 	std::string token;
 	bool autoReconnect;

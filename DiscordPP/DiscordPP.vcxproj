@@ -23,6 +23,7 @@
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>DiscordPP</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <ProjectName>DiscordCPP</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -137,14 +138,18 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\DiscordPP\DiscordCpp.h" />
+    <ClInclude Include="..\include\DiscordPP\EventParams.h" />
+    <ClInclude Include="..\include\DiscordPP\EventSystem.h" />
     <ClInclude Include="..\include\DiscordPP\Gateway.h" />
-    <ClInclude Include="..\include\DiscordPP\IStartParams.h" />
+    <ClInclude Include="..\include\DiscordPP\IEventListener.h" />
+    <ClInclude Include="..\include\DiscordPP\StartParams.h" />
     <ClInclude Include="JSON.hpp" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DiscordCpp.cpp" />
+    <ClCompile Include="EventSystem.cpp" />
     <ClCompile Include="Gateway.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
