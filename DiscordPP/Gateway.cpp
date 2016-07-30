@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include <DiscordPP/Gateway.h>
 #include "JSON.hpp"
+#include "Packets.h"
 
 void on_message(client* c, websocketpp::connection_hdl hdl, message_ptr msg) 
 {
@@ -37,6 +38,11 @@ CGateway::~CGateway()
 	m_client.stop();
 }
 
+void CGateway::WsSend(std::string payload)
+{
+	m_client.send(m_connection, payload, websocketpp::frame::opcode::text);
+}
+
 context_ptr CGateway::onTlsInit(websocketpp::connection_hdl hdl)
 {
 	context_ptr ctx(new boost::asio::ssl::context(boost::asio::ssl::context::tlsv1));
@@ -58,12 +64,7 @@ void CGateway::Keepalive(uint32_t ms)
 	{
 		while (true)
 		{
-			nlohmann::json message = {
-				{ "op", 1 },
-				{ "d", pGw->m_lastSequence }
-			};
-			printf("%s \n", message.dump().c_str());
-			pGw->m_client.send(pGw->m_connection, message.dump(), websocketpp::frame::opcode::text);
+			pGw->WsSend(GetKeepalivePacket(pGw->m_lastSequence));
 			Sleep(ms);
 		}
 	}, ms, this);
@@ -94,25 +95,7 @@ void CGateway::onMessage(client* c, websocketpp::connection_hdl hdl, message_ptr
 
 void CGateway::onOpen(websocketpp::connection_hdl hdl)
 {
-	nlohmann::json j = { 
-		{ "op", 2 },
-		{ "d",{
-			{ "token", m_startParams.token },
-			{ "v", 5 },
-			{ "compress", false },
-			{ "large_threshold", 100 },
-			{ "properties",{
-				{ "$os","linux" },
-				{ "$browser","discord.cpp" },
-				{ "$device","discord.cpp" },
-				{ "referrer", "" },
-				{ "$referring_domain", "" }
-			} }
-		}},
-	};
-	std::string handshake = j.dump();
-	printf("%s \n", handshake.c_str());
-	m_client.send(hdl, handshake, websocketpp::frame::opcode::text);
+	WsSend(GetHandshakePacket(m_startParams.token));
 }
 
 void CGateway::onClose(websocketpp::connection_hdl hd)

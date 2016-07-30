@@ -15,6 +15,12 @@ enum EEventType
 	CHANNEL_DELETE
 };
 
+enum EPayloadType
+{
+	HANDSHAKE,
+	CREATE_MESSAGE
+};
+
 struct SEventParams
 {
 	EEventType type;

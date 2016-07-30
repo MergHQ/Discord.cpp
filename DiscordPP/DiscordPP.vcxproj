@@ -143,6 +143,7 @@
     <ClInclude Include="..\include\DiscordPP\Gateway.h" />
     <ClInclude Include="..\include\DiscordPP\IEventListener.h" />
     <ClInclude Include="..\include\DiscordPP\StartParams.h" />
+    <ClInclude Include="Packets.h" />
     <ClInclude Include="JSON.hpp" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />

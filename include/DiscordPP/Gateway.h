@@ -21,6 +21,7 @@ public:
 	std::thread m_keepAliveThread;
 	client::connection_ptr m_connection;
 	std::string m_lastSequence = "null";
+	void WsSend(std::string payload);
 private:
 	context_ptr onTlsInit(websocketpp::connection_hdl hdl);
 	void Keepalive(uint32_t ms);
