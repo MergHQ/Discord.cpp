@@ -16,17 +16,15 @@ CGateway::CGateway(std::string uri, SStartParams& params)
 
 	websocketpp::lib::error_code ec;
 
-	m_client.set_tls_init_handler(bind(&CGateway::onTlsInit, this, ::_1));
-	m_client.set_message_handler(bind(&CGateway::onMessage, this, &m_client, ::_1, ::_2));
-	m_client.set_socket_init_handler(bind(&CGateway::onSocketInit, this, ::_1));
-	m_client.set_open_handler(bind(&CGateway::onOpen, this, ::_1));
-	m_client.set_close_handler(bind(&CGateway::onClose, this, ::_1));
+	m_client.set_tls_init_handler(bind(&CGateway::OnTlsInit, this, ::_1));
+	m_client.set_message_handler(bind(&CGateway::OnMessage, this, &m_client, ::_1, ::_2));
+	m_client.set_socket_init_handler(bind(&CGateway::OnSocketInit, this, ::_1));
+	m_client.set_open_handler(bind(&CGateway::OnOpen, this, ::_1));
+	m_client.set_close_handler(bind(&CGateway::OnClose, this, ::_1));
 
 	m_connection = m_client.get_connection(uri, ec);
 	if (ec) 
 		printf("error");
-
-	m_client.set_tls_init_handler(bind(&CGateway::onTlsInit, this, ::_1));
 
 	m_client.connect(m_connection);
 	m_client.run();
@@ -43,7 +41,7 @@ void CGateway::WsSend(std::string payload)
 	m_client.send(m_connection, payload, websocketpp::frame::opcode::text);
 }
 
-context_ptr CGateway::onTlsInit(websocketpp::connection_hdl hdl)
+context_ptr CGateway::OnTlsInit(websocketpp::connection_hdl hdl)
 {
 	context_ptr ctx(new boost::asio::ssl::context(boost::asio::ssl::context::tlsv1));
 
@@ -70,7 +68,7 @@ void CGateway::Keepalive(uint32_t ms)
 	}, ms, this);
 }
 
-void CGateway::onMessage(client* c, websocketpp::connection_hdl hdl, message_ptr msg)
+void CGateway::OnMessage(client* c, websocketpp::connection_hdl hdl, message_ptr msg)
 {
 	nlohmann::json j = nlohmann::json::parse(msg->get_payload());
 
@@ -93,15 +91,15 @@ void CGateway::onMessage(client* c, websocketpp::connection_hdl hdl, message_ptr
 	gApp->pEventSystem->OnEvent(p);
 }
 
-void CGateway::onOpen(websocketpp::connection_hdl hdl)
+void CGateway::OnOpen(websocketpp::connection_hdl hdl)
 {
 	WsSend(GetHandshakePacket(m_startParams.token));
 }
 
-void CGateway::onClose(websocketpp::connection_hdl hd)
+void CGateway::OnClose(websocketpp::connection_hdl hd)
 {
 }
 
-void CGateway::onSocketInit(websocketpp::connection_hdl hdl)
+void CGateway::OnSocketInit(websocketpp::connection_hdl hdl)
 {
 }

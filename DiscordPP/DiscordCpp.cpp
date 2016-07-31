@@ -1,12 +1,14 @@
 #include "stdafx.h"
-#include <DiscordPP\DiscordCpp.h>
+#include <DiscordPP/DiscordCpp.h>
 #include <thread>
+#include <DiscordPP/WebRequest.h>
 
 CDiscordCpp* gApp;
 
 CDiscordCpp::CDiscordCpp(SStartParams& params)
 {
 	gApp = this;
+	startParams = params;
 	pEventSystem = new CEventSystem;
 
 	// Run gateway on separate thread
@@ -19,6 +21,17 @@ CDiscordCpp::CDiscordCpp(SStartParams& params)
 CDiscordCpp::~CDiscordCpp()
 {
 	delete pGateway;
-	m_gatewayThread.detach();
 	delete pEventSystem;
+}
+
+void CDiscordCpp::CreateMessage(std::string chanId, std::string content)
+{
+	if (content.length() > 2000) return;
+
+	nlohmann::json j;
+	j["content"] = content;
+
+	CWebRequest wr;
+	std::string res;
+	wr.Post("/channels/" + chanId + "/messages", startParams.token, j.dump());
 }

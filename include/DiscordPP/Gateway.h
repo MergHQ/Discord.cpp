@@ -23,10 +23,10 @@ public:
 	std::string m_lastSequence = "null";
 	void WsSend(std::string payload);
 private:
-	context_ptr onTlsInit(websocketpp::connection_hdl hdl);
+	context_ptr OnTlsInit(websocketpp::connection_hdl hdl);
 	void Keepalive(uint32_t ms);
-	void onMessage(client* c, websocketpp::connection_hdl hdl, message_ptr msg);
-	void onOpen(websocketpp::connection_hdl hdl);
-	void onClose(websocketpp::connection_hdl hd);
-	void onSocketInit(websocketpp::connection_hdl hdl);
+	void OnMessage(client* c, websocketpp::connection_hdl hdl, message_ptr msg);
+	void OnOpen(websocketpp::connection_hdl hdl);
+	void OnClose(websocketpp::connection_hdl hd);
+	void OnSocketInit(websocketpp::connection_hdl hdl);
 };

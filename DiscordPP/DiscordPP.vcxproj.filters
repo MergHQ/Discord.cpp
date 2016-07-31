@@ -59,6 +59,9 @@
     <ClInclude Include="Packets.h">
       <Filter>Source Files\Net</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\DiscordPP\WebRequest.h">
+      <Filter>Source Files\Net</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -72,6 +75,9 @@
     </ClCompile>
     <ClCompile Include="EventSystem.cpp">
       <Filter>Source Files\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="WebRequest.cpp">
+      <Filter>Source Files\Net</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
