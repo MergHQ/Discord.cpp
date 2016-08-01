@@ -9,7 +9,7 @@ static std::string GetHandshakePacket(std::string token)
 		{ "op", 2 },
 		{ "d",{
 			{ "token", token },
-			{ "v", 5 },
+			{ "v", 6 },
 			{ "compress", false },
 			{ "large_threshold", 100 },
 			{ "properties",{

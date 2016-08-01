@@ -72,6 +72,7 @@ void CGateway::OnMessage(client* c, websocketpp::connection_hdl hdl, message_ptr
 {
 	nlohmann::json j = nlohmann::json::parse(msg->get_payload());
 
+
 	if (j["s"].is_null())
 		m_lastSequence = "null";
 	else
