@@ -14,7 +14,7 @@ CDiscordCpp::CDiscordCpp(SStartParams& params)
 	// Run gateway on separate thread
 	m_gatewayThread = std::thread([](SStartParams& params) 
 	{
-		gApp->pGateway = new CGateway("wss://gateway.discord.gg/?encoding=json&v=5", params);
+		gApp->pGateway = new CGateway("wss://gateway.discord.gg/?encoding=json&v=6", params);
 	}, params);
 }
 

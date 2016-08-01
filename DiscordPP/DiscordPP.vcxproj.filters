@@ -62,6 +62,9 @@
     <ClInclude Include="..\include\DiscordPP\WebRequest.h">
       <Filter>Source Files\Net</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\DiscordPP\User.h">
+      <Filter>Structs</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

@@ -14,6 +14,7 @@ public:
 	CGateway* pGateway;
 	SStartParams startParams;
 	void CreateMessage(std::string chanId, std::string content);
+	void CreateDm(std::string uid, std::string content);
 private:
 	std::thread m_gatewayThread;
 };
