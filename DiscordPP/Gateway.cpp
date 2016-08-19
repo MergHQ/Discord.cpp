@@ -72,6 +72,10 @@ void CGateway::OnMessage(client* c, websocketpp::connection_hdl hdl, message_ptr
 {
 	nlohmann::json j = nlohmann::json::parse(msg->get_payload());
 
+	SEventParams p;
+	p.opCode = j["op"].get<int>();
+	p.raw = msg->get_payload();
+	gApp->pEventSystem->OnRawEvent(p);
 
 	if (j["s"].is_null())
 		m_lastSequence = "null";
@@ -84,12 +88,179 @@ void CGateway::OnMessage(client* c, websocketpp::connection_hdl hdl, message_ptr
 		Keepalive(ms);
 	}
 
-	SEventParams p;
-	p.object = j;
-	p.opCode = j["op"].get<int>();
-	p.raw = msg->get_payload();
+	if (j["op"].get<int>() == 0) {
+		SEventParams p;
+		if (j["t"] == "MESSAGE_CREATE")
+		{
+			p.object = j["d"];
+			p.opCode = 0;
+			p.raw = msg->get_payload();
+			p.type = EPayloadType::MESSAGE_CREATE;
+		}
+		else if (j["t"] == "READY")
+		{
+			p.object = j["d"];
+			p.opCode = 0;
+			p.type = EPayloadType::READY;
+			p.raw = msg->get_payload();
+		}
+		else if (j["t"] == "CHANNEL_CREATE") 
+		{
+			p.object = j["d"];
+			p.opCode = 0;
+			p.type = EPayloadType::CHANNEL_CREATE;
+			p.raw = msg->get_payload();
+		}
+		else if (j["t"] == "CHANNEL_UPDATE")
+		{
+			p.object = j["d"];
+			p.opCode = 0;
+			p.type = EPayloadType::CHANNEL_UPDATE;
+			p.raw = msg->get_payload();
+		}
+		else if (j["t"] == "CHANNEL_DELETE")
+		{
+			p.object = j["d"];
+			p.opCode = 0;
+			p.type = EPayloadType::CHANNEL_DELETE;
+			p.raw = msg->get_payload();
+		}
+		else if (j["t"] == "GUILD_CREATE")
+		{
+			p.object = j["d"];
+			p.opCode = 0;
+			p.type = EPayloadType::GUILD_CREATE;
+			p.raw = msg->get_payload();
+		}
+		else if (j["t"] == "GUILD_DELETE")
+		{
+			p.object = j["d"];
+			p.opCode = 0;
+			p.type = EPayloadType::GUILD_DELETE;
+			p.raw = msg->get_payload();
+		}
+		else if (j["t"] == "GUILD_BAN_ADD")
+		{
+			p.object = j["d"];
+			p.opCode = 0;
+			p.type = EPayloadType::GUILD_BAN_ADD;
+			p.raw = msg->get_payload();
+		}
+		else if (j["t"] == "GUILD_BAN_REMOVE")
+		{
+			p.object = j["d"];
+			p.opCode = 0;
+			p.type = EPayloadType::GUILD_BAN_REMOVE;
+			p.raw = msg->get_payload();
+		}
+		else if (j["t"] == "GUILD_EMOJI_UPDATE")
+		{
+			p.object = j["d"];
+			p.opCode = 0;
+			p.type = EPayloadType::GUILD_EMOJI_UPDATE;
+			p.raw = msg->get_payload();
+		}
+		else if (j["t"] == "GUILD_INTEGRATIONS_UPDATE")
+		{
+			p.object = j["d"];
+			p.opCode = 0;
+			p.type = EPayloadType::GUILD_INTEGRATIONS_UPDATE;
+			p.raw = msg->get_payload();
+		}
+		else if (j["t"] == "GUILD_MEMBER_ADD")
+		{
+			p.object = j["d"];
+			p.opCode = 0;
+			p.type = EPayloadType::GUILD_MEMBER_ADD;
+			p.raw = msg->get_payload();
+		}
+		else if (j["t"] == "GUILD_MEMBER_REMOVE")
+		{
+			p.object = j["d"];
+			p.opCode = 0;
+			p.type = EPayloadType::GUILD_MEMBER_ADD;
+			p.raw = msg->get_payload();
+		}
+		else if (j["t"] == "GUILD_MEMBER_UPDATE")
+		{
+			p.object = j["d"];
+			p.opCode = 0;
+			p.type = EPayloadType::GUILD_MEMBER_UPDATE;
+			p.raw = msg->get_payload();
+		}
+		else if (j["t"] == "GUILD_MEMBERS_CHUNK")
+		{
+			p.object = j["d"];
+			p.opCode = 0;
+			p.type = EPayloadType::GUILD_MEMBERS_CHUNK;
+			p.raw = msg->get_payload();
+		}
+		else if (j["t"] == "GUILD_ROLE_CREATE")
+		{
+			p.object = j["d"];
+			p.opCode = 0;
+			p.type = EPayloadType::GUILD_ROLE_CREATE;
+			p.raw = msg->get_payload();
+		}
+		else if (j["t"] == "GUILD_ROLE_UPDATE")
+		{
+			p.object = j["d"];
+			p.opCode = 0;
+			p.type = EPayloadType::GUILD_ROLE_UPDATE;
+			p.raw = msg->get_payload();
+		}
+		else if (j["t"] == "GUILD_ROLE_DELETE")
+		{
+			p.object = j["d"];
+			p.opCode = 0;
+			p.type = EPayloadType::GUILD_ROLE_DELETE;
+			p.raw = msg->get_payload();
+		}
+		else if (j["t"] == "MESSAGE_UPDATE")
+		{
+			p.object = j["d"];
+			p.opCode = 0;
+			p.type = EPayloadType::MESSAGE_UPDATE;
+			p.raw = msg->get_payload();
+		}
+		else if (j["t"] == "MESSAGE_DELETE")
+		{
+			p.object = j["d"];
+			p.opCode = 0;
+			p.type = EPayloadType::MESSAGE_DELETE;
+			p.raw = msg->get_payload();
+		}
+		else if (j["t"] == "PRECENSE_UPDATE")
+		{
+			p.object = j["d"];
+			p.opCode = 0;
+			p.type = EPayloadType::PRECENSE_UPDATE;
+			p.raw = msg->get_payload();
+		}
+		else if (j["t"] == "TYPING_START")
+		{
+			p.object = j["d"];
+			p.opCode = 0;
+			p.type = EPayloadType::TYPING_START;
+			p.raw = msg->get_payload();
+		}
+		else if (j["t"] == "VOICE_STATE_UPDATE")
+		{
+			p.object = j["d"];
+			p.opCode = 0;
+			p.type = EPayloadType::VOICE_STATE_UPDATE;
+			p.raw = msg->get_payload();
+		}
+		else if (j["t"] == "VOICE_SERVER_UPDATE")
+		{
+			p.object = j["d"];
+			p.opCode = 0;
+			p.type = EPayloadType::VOICE_SERVER_UPDATE;
+			p.raw = msg->get_payload();
+		}
 
-	gApp->pEventSystem->OnEvent(p);
+		gApp->pEventSystem->OnRawEvent(p);
+	}
 }
 
 void CGateway::OnOpen(websocketpp::connection_hdl hdl)

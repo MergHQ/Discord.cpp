@@ -1,6 +1,5 @@
 #include "stdafx.h"
-#include <DiscordPP\EventSystem.h>
-
+#include <DiscordPP/EventSystem.h>
 
 CEventSystem::CEventSystem()
 {
@@ -11,16 +10,24 @@ CEventSystem::~CEventSystem()
 {
 }
 
-void CEventSystem::RegisterEventListener(IEventListener* pListener)
+
+
+uint16_t CEventSystem::RegisterEventListener(IEventListener* pListener)
 {
-	m_listeners.push_back(pListener);
+	m_listeners[index++] = pListener;
+	return index;
 }
 
-void CEventSystem::OnEvent(SEventParams& params)
+void CEventSystem::OnRawEvent(SEventParams& params)
 {
 	// Emit to all listeners
-	for (IEventListener* pListener : m_listeners) 
+	for (std::pair<uint16_t, IEventListener*> o : m_listeners)
 	{
-		pListener->OnEvent(params);
+		o.second->OnRawEvent(params);
 	}
+}
+
+void CEventSystem::RemoveListener(uint16_t id)
+{
+	delete m_listeners[id];
 }

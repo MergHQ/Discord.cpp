@@ -65,6 +65,12 @@
     <ClInclude Include="..\include\DiscordPP\User.h">
       <Filter>Structs</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\DiscordPP\IDiscordObject.h">
+      <Filter>Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\DiscordPP\Message.h">
+      <Filter>Structs</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

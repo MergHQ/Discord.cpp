@@ -2170,7 +2170,7 @@ namespace nlohmann
 				dump(ss, false, 0);
 			}
 
-			return ss.str();
+			return ss.str().substr(1, ss.str().length() - 2);
 		}
 
 		/*!
