@@ -1,7 +1,7 @@
 #pragma once
 #include <DiscordPP\IEventListener.h>
 #include <DiscordPP\EventParams.h>
-#include <vector>
+#include <map>
 
 class CEventSystem
 {
@@ -9,9 +9,11 @@ public:
 	CEventSystem();
 	~CEventSystem();
 
-	void RegisterEventListener(IEventListener*);
-	void OnEvent(SEventParams& params);
+	uint16_t RegisterEventListener(IEventListener*);
+	void OnRawEvent(SEventParams& params);
+	void RemoveListener(uint16_t id);
 private:
-	std::vector<IEventListener*> m_listeners;
+	uint16_t index;
+	std::map<uint16_t, IEventListener*> m_listeners;
 };
 

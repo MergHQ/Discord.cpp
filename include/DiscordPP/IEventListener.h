@@ -1,8 +1,9 @@
 #pragma once
-#include <DiscordPP\EventParams.h>
+#include <DiscordPP/IDiscordObject.h>
+#include <DiscordPP/EventParams.h>
 
 struct IEventListener
 {
 	virtual ~IEventListener() {};
-	virtual void OnEvent(SEventParams&) = 0;
+	virtual void OnRawEvent(SEventParams&) = 0;
 };

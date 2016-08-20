@@ -2173,6 +2173,31 @@ namespace nlohmann
 			return ss.str();
 		}
 
+		string_t str(const int indent = -1) const
+		{
+			std::stringstream ss;
+			// fix locale problems
+			ss.imbue(std::locale(std::locale(), new DecimalSeparator));
+
+			// 6, 15 or 16 digits of precision allows round-trip IEEE 754
+			// string->float->string, string->double->string or string->long
+			// double->string; to be safe, we read this value from
+			// std::numeric_limits<number_float_t>::digits10
+			ss.precision(std::numeric_limits<double>::digits10);
+
+			if (indent >= 0)
+			{
+				dump(ss, true, static_cast<unsigned int>(indent));
+			}
+			else
+			{
+				dump(ss, false, 0);
+			}
+
+			return ss.str().substr(1, ss.str().length() - 2);
+		}
+
+
 		/*!
 		@brief return the type of the JSON value (explicit)
 

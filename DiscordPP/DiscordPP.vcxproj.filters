@@ -59,17 +59,11 @@
     <ClInclude Include="Packets.h">
       <Filter>Source Files\Net</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\DiscordPP\WebRequest.h">
+    <ClInclude Include="..\include\DiscordPP\APIRequest.h">
       <Filter>Source Files\Net</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\DiscordPP\User.h">
-      <Filter>Structs</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\DiscordPP\IDiscordObject.h">
-      <Filter>Interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\DiscordPP\Message.h">
-      <Filter>Structs</Filter>
+    <ClInclude Include="Utils.hpp">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -85,7 +79,7 @@
     <ClCompile Include="EventSystem.cpp">
       <Filter>Source Files\Systems</Filter>
     </ClCompile>
-    <ClCompile Include="WebRequest.cpp">
+    <ClCompile Include="APIRequest.cpp">
       <Filter>Source Files\Net</Filter>
     </ClCompile>
   </ItemGroup>
