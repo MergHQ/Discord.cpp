@@ -259,7 +259,7 @@ void CGateway::OnMessage(client* c, websocketpp::connection_hdl hdl, message_ptr
 			p.raw = msg->get_payload();
 		}
 
-		gApp->pEventSystem->OnRawEvent(p);
+		gApp->pEventSystem->OnRawEvent(p); // TODO: Queue gateway events on main thread. Don't slow down the gateway thead with requests and shit.
 	}
 }
 
