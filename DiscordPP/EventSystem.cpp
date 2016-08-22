@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include <DiscordPP/EventSystem.h>
+#include "Utils.hpp"
 
 CEventSystem::CEventSystem()
 {
@@ -9,7 +10,6 @@ CEventSystem::CEventSystem()
 CEventSystem::~CEventSystem()
 {
 }
-
 
 
 uint16_t CEventSystem::RegisterEventListener(IEventListener* pListener)
@@ -30,4 +30,24 @@ void CEventSystem::OnRawEvent(SEventParams& params)
 void CEventSystem::RemoveListener(uint16_t id)
 {
 	delete m_listeners[id];
+}
+
+void CEventSystem::Update()
+{
+	for (int i = 0; i < events.size(); ++i) 
+	{
+		isUsed = true;
+		try 
+		{
+			OnRawEvent(events.at(i));
+		}
+		catch (std::out_of_range e)
+		{
+			Log(e.what());
+		}
+	}
+
+	if (isUsed)
+		events.clear(); // fucking std::vector<>().empty() always tricking me
+	isUsed = false;
 }

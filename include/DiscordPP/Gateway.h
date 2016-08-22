@@ -2,7 +2,9 @@
 #include <websocketpp/client.hpp>
 #include <websocketpp/config/asio_client.hpp>
 #include <websocketpp/client.hpp>
-#include <DiscordPP\StartParams.h>
+#include <DiscordPP/StartParams.h>
+#include <vector>
+#include <DiscordPP/EventParams.h>
 
 typedef websocketpp::client<websocketpp::config::asio_tls_client> client;
 typedef websocketpp::config::asio_tls_client::message_type::ptr message_ptr;
@@ -23,6 +25,7 @@ public:
 	std::string m_lastSequence = "null";
 	void WsSend(std::string payload);
 private:
+	std::vector<SEventParams> events;
 	context_ptr OnTlsInit(websocketpp::connection_hdl hdl);
 	void Keepalive(uint32_t ms);
 	void OnMessage(client* c, websocketpp::connection_hdl hdl, message_ptr msg);

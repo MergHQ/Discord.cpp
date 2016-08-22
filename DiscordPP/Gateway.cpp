@@ -3,12 +3,6 @@
 #include "JSON.hpp"
 #include "Packets.h"
 
-void on_message(client* c, websocketpp::connection_hdl hdl, message_ptr msg) 
-{
-	printf("%s \n", msg->get_payload().c_str());
-}
-
-
 CGateway::CGateway(std::string uri, SStartParams& params)
 {
 	m_startParams = params;
@@ -24,7 +18,7 @@ CGateway::CGateway(std::string uri, SStartParams& params)
 
 	m_connection = m_client.get_connection(uri, ec);
 	if (ec) 
-		printf("error");
+		printf("error \n");
 
 	m_client.connect(m_connection);
 	m_client.run();
@@ -63,7 +57,7 @@ void CGateway::Keepalive(uint32_t ms)
 		while (true)
 		{
 			pGw->WsSend(GetKeepalivePacket(pGw->m_lastSequence));
-			Sleep(ms);
+			std::this_thread::sleep_for(std::chrono::milliseconds(ms));
 		}
 	}, ms, this);
 }
@@ -259,7 +253,16 @@ void CGateway::OnMessage(client* c, websocketpp::connection_hdl hdl, message_ptr
 			p.raw = msg->get_payload();
 		}
 
-		gApp->pEventSystem->OnRawEvent(p); // TODO: Queue gateway events on main thread. Don't slow down the gateway thead with requests and shit.
+		if (gApp->pEventSystem->events.size() != 0 || gApp->pEventSystem->isUsed)
+		{
+			events.push_back(p);
+		}
+		else 
+		{
+			events.push_back(p);
+			gApp->pEventSystem->events = events;
+			events.clear();
+		}
 	}
 }
 
