@@ -29,12 +29,15 @@ void CEventSystem::OnRawEvent(SEventParams& params)
 
 void CEventSystem::RemoveListener(uint16_t id)
 {
-	delete m_listeners[id];
+	m_listeners.erase(id);
 }
 
 void CEventSystem::Update()
 {
-	for (int i = 0; i < events.size(); ++i) 
+	size_t s = events.size();
+	s = s > 100 ? 0 : s;
+
+	for (int i = 0; i < s; ++i) 
 	{
 		isUsed = true;
 		try 
